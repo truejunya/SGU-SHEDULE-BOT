@@ -38,7 +38,7 @@ if (isset($data->type) and $data->type == 'message_new') {
                     $vk->sendButton($peer_id, 'Выбери факультет.', [[BTN_BF, BTN_GF, BTN_GL], [BTN_IDPO, BTN_II, BTN_IMO], [BTN_IFK, BTN_IFG, BTN_IH], [BTN_MM, BTN_SF, BTN_FI], [BTN_FNT, BTN_FN, BTN_FNP], [BTN_FPS, BTN_FPPSO, BTN_FF], [BTN_FP, BTN_EF, BTN_UF]]);
                 break;
                 case 'pre':
-                    $task = array('id' => $peer_id, 'stage' => 'fac');
+                    $task = array('id' => $peer_id, 'stage' => 'pre');
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи фамилию преподавателя', [[BTN_BACK]]);
                 break;
