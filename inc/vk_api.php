@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors', 'Off');
 class vk_api {
-    private $token = '';
+    private $token = 'ca22592a71f96fe01d90e2251259df7665411310663a7ae1f5c902c2ee0ac15580365ec3f81c66ced7717';
     private $v = '5.80';
     public function __construct($token, $v) {
         $this->token = $token;
@@ -36,12 +36,23 @@ class vk_api {
             $stage = $info->{'stage'};
             $url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=' . $stage . '/do/' . $grp . '&pid=' . $peer_id;
             $imagfs12e = file_get_contents($url);
+			if ((filesize('img/' . $peer_id . '.png')) < 30000) {
+				
+				$url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=' . $stage . '/do/' . $grp . '&pid=' . $peer_id;
+				$imagfs12e = file_get_contents($url);
+			}
         }
     }
     public function genImageT($peer_id, $grp) {
         if (preg_match("/^[\d\+]+$/", $grp)) {
             $url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=teacher/' . $grp . '&pid=' . $peer_id;
             $imagfs12e = file_get_contents($url);
+			if ((filesize('img/' . $peer_id . '.png')) < 30000) {
+				
+				$url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=teacher/' . $grp . '&pid=' . $peer_id;
+				$imagfs12e = file_get_contents($url);
+			}
+			
         }
     }
     public function sendMessage($sendID, $message) {
