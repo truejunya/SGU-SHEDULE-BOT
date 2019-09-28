@@ -32,28 +32,31 @@ class vk_api {
     }
     public function genImage($peer_id, $grp) {
         if (preg_match("/^[\d\+]+$/", $grp)) {
+			$i=0;
+		    while ($i<2){
             $info = json_decode(file_get_contents('files/' . $peer_id . '.json'));
             $stage = $info->{'stage'};
             $url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=' . $stage . '/do/' . $grp . '&pid=' . $peer_id;
             $imagfs12e = file_get_contents($url);
-			if ((filesize('img/' . $peer_id . '.png')) < 30000) {
+			$i++;
+			if ((filesize('img/' . $peer_id . '.png')) > 30000) {
 				
-				$url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=' . $stage . '/do/' . $grp . '&pid=' . $peer_id;
-				$imagfs12e = file_get_contents($url);
+				break;
 			}
-        }
+        }}
     }
     public function genImageT($peer_id, $grp) {
         if (preg_match("/^[\d\+]+$/", $grp)) {
+			$i=0;
+			while ($i<2){ 
             $url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=teacher/' . $grp . '&pid=' . $peer_id;
             $imagfs12e = file_get_contents($url);
-			if ((filesize('img/' . $peer_id . '.png')) < 30000) {
+			if ((filesize('img/' . $peer_id . '.png')) > 30000) {
 				
-				$url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=teacher/' . $grp . '&pid=' . $peer_id;
-				$imagfs12e = file_get_contents($url);
+				break;
 			}
 			
-        }
+        }}
     }
     public function sendMessage($sendID, $message) {
         if ($sendID != 0 and $sendID != '0') {
