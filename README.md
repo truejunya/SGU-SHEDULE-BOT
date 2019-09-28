@@ -1,2 +1,10 @@
-# SGUSHEDULEBOT
- SGU SHEDULE BOT
+# SGU SHEDULE BOT - Бот для выдачи расписания СГУ им.Чернышевского
+Бот позволяет вам узнать расписание занятий студентов/преподователей.
+
+## Начало
+- Добавить token в inc/vk_api.php
+- Добавить token в inc/config.php
+
+Работающий бот: https://vk.com/sgu_bot
+
+
