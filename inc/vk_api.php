@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors', 'Off');
 class vk_api {
-    private $token = 'ca22592a71f96fe01d90e2251259df7665411310663a7ae1f5c902c2ee0ac15580365ec3f81c66ced7717';
+    private $token = '';
     private $v = '5.80';
     public function __construct($token, $v) {
         $this->token = $token;
