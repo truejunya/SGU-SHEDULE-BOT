@@ -36,7 +36,22 @@ class vk_api {
 		    while ($i<2){
             $info = json_decode(file_get_contents('files/' . $peer_id . '.json'));
             $stage = $info->{'stage'};
-            $url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=' . $stage . '/do/' . $grp . '&pid=' . $peer_id;
+            $url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=' . $stage . '/' . $grp . '&pid=' . $peer_id;
+            $imagfs12e = file_get_contents($url);
+			$i++;
+			if ((filesize('img/' . $peer_id . '.png')) > 30000) {
+				
+				break;
+			}
+        }}
+    }
+	public function genImageZ($peer_id, $grp) {
+        if (preg_match("/^[\d\+]+$/", $grp)) {
+			$i=0;
+		    while ($i<2){
+            $info = json_decode(file_get_contents('files/' . $peer_id . '.json'));
+            $stage = $info->{'stage'};
+            $url = 'http://' . $_SERVER['HTTP_HOST'] . '/screen.php?id=' . $stage . '/' . $grp . '&pid=' . $peer_id;
             $imagfs12e = file_get_contents($url);
 			$i++;
 			if ((filesize('img/' . $peer_id . '.png')) > 30000) {

@@ -18,13 +18,13 @@ if (isset($data->type) and $data->type == 'message_new') {
         $payload = null;
     }
     if (!file_exists('files/' . $peer_id . '.json')) {
-        $task = array('id' => $peer_id, 'stage' => '0', 'rj' => '0');
+        $task = array('id' => $peer_id, 'stage' => '0');
         file_put_contents('files/' . $peer_id . '.json', json_encode($task));
     }
     $info = json_decode(file_get_contents('files/' . $peer_id . '.json'));
     $stage = $info->{'stage'};
     if (isset($payload['command']) or mb_strtolower($message) == 'привет') {
-        $vk->sendButton($peer_id, 'Выбери пункт.', [[BTN_PRE, BTN_STU]]);
+        $vk->sendButton($peer_id, 'Выбери пункт.', [[BTN_STU, BTN_ZSTU],[BTN_PRE]]);
         unlink('img/' . $peer_id . '.png');
         $task = array('id' => $peer_id, 'stage' => '0');
         file_put_contents('files/' . $peer_id . '.json', json_encode($task));
@@ -38,112 +38,265 @@ if (isset($data->type) and $data->type == 'message_new') {
                     $vk->sendButton($peer_id, 'Выбери факультет.', [[BTN_BF, BTN_GF, BTN_GL], [BTN_IDPO, BTN_II, BTN_IMO], [BTN_IFK, BTN_IFG, BTN_IH], [BTN_MM, BTN_SF, BTN_FI], [BTN_FNT, BTN_FN, BTN_FNP], [BTN_FPS, BTN_FPPSO, BTN_FF], [BTN_FP, BTN_EF, BTN_UF]]);
                 break;
                 case 'pre':
+				     
                     $task = array('id' => $peer_id, 'stage' => 'pre');
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи фамилию преподавателя', [[BTN_BACK]]);
                 break;
                 case 'bf':
-                    $task = array('id' => $peer_id, 'stage' => 'bf');
+				    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'bf/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'bf/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'gf':
-                    $task = array('id' => $peer_id, 'stage' => 'gf');
+                   if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'gf/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'gf/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
+				case 'zstu':                    
+                 $vk->sendButton($peer_id, 'Выбери факультет.', [[BTN_BF, BTN_GF, BTN_GL], [BTN_IDPO, BTN_II, BTN_IMO], [BTN_UF, BTN_IFG,BTN_FNT], [BTN_MM, BTN_SF, BTN_FI], [ BTN_FN,BTN_FP, BTN_EF,], [BTN_FPS, BTN_FPPSO, BTN_FF]]);
+               	 $task = array('id' => $peer_id, 'stage' => 'zao');						
+                 file_put_contents('files/' . $peer_id . '.json', json_encode($task));
+                break;
                 case 'gl':
-                    $task = array('id' => $peer_id, 'stage' => 'gl');
+                   if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'gl/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'gl/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'idpo':
-                    $task = array('id' => $peer_id, 'stage' => 'idpo');
+                   if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'idpo/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'idpo/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'ii':
-                    $task = array('id' => $peer_id, 'stage' => 'ii');
+                   if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'ii/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'ii/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'imo':
-                    $task = array('id' => $peer_id, 'stage' => 'imo');
+                    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'imo/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'imo/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'ifk':
-                    $task = array('id' => $peer_id, 'stage' => 'ifk');
+                    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'ifk/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'ifk/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'ifg':
-                    $task = array('id' => $peer_id, 'stage' => 'ifg');
+                    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'ifg/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'ifg/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'ih':
-                    $task = array('id' => $peer_id, 'stage' => 'ih');
+                    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'ih/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'ih/do');
+					};
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'mm':
-                    $task = array('id' => $peer_id, 'stage' => 'mm');
+                    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'mm/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'mm/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'sf':
-                    $task = array('id' => $peer_id, 'stage' => 'sf');
+                   if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'sf/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'sf/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'fi':
-                    $task = array('id' => $peer_id, 'stage' => 'fi');
+                    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'fi/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'fi/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'knt':
-                    $task = array('id' => $peer_id, 'stage' => 'knt');
+                    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'knt/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'knt/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'fn':
-                    $task = array('id' => $peer_id, 'stage' => 'fn');
+                   if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'fn/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'fn/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'fnp':
-                    $task = array('id' => $peer_id, 'stage' => 'fnp');
+                    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'fnp/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'fnp/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'fps':
-                    $task = array('id' => $peer_id, 'stage' => 'fps');
+                    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'fps/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'fps/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'fppso':
-                    $task = array('id' => $peer_id, 'stage' => 'fppso');
+                   if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'fppso/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'fppso/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'ff':
-                    $task = array('id' => $peer_id, 'stage' => 'ff');
+                    if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'ff/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'ff/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'fp':
-                    $task = array('id' => $peer_id, 'stage' => 'fp');
+                     if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'fp/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'fp/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'ef':
-                    $task = array('id' => $peer_id, 'stage' => 'ef');
+                      if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'ef/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'ef/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
                 case 'uf':
-                    $task = array('id' => $peer_id, 'stage' => 'uf');
+                   if ($stage == 'zao')
+					{
+					 $task = array('id' => $peer_id, 'stage' => 'uf/zo');	
+					}
+					else
+					{
+                    $task = array('id' => $peer_id, 'stage' => 'uf/do');
+					}
                     file_put_contents('files/' . $peer_id . '.json', json_encode($task));
                     $vk->sendButton($peer_id, 'Введи номер группы', [[BTN_BACK]]);
                 break;
