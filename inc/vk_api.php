@@ -31,7 +31,7 @@ class vk_api {
         }
     }
     public function genImage($peer_id, $grp) {
-        if (preg_match("/^[\d\+]+$/", $grp)) {
+        
 			$i=0;
 		    while ($i<2){
             $info = json_decode(file_get_contents('files/' . $peer_id . '.json'));
@@ -43,7 +43,7 @@ class vk_api {
 				
 				break;
 			}
-        }}
+        }
     }
 	public function genImageZ($peer_id, $grp) {
         if (preg_match("/^[\d\+]+$/", $grp)) {
